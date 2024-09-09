@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React, { useState } from 'react';
+import SideBar from './components/SideBar';
+import LineChart from './components/LineChart';
+import BarChart from './components/BarChart';
 
-function App() {
+const App = () => {
+  const [selectedChart, setSelectedChart] = useState('line');
+
+  const renderChart = () => {
+    switch (selectedChart) {
+      case 'line':
+        return <LineChart />;
+      case 'bar':
+        return <BarChart />;
+      // Add more cases for other charts
+      default:
+        return <LineChart />;
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app-container">
+      <SideBar setSelectedChart={setSelectedChart} />
+      <div className="chart-container">
+        {renderChart()}
+      </div>
     </div>
   );
-}
+};
 
 export default App;
